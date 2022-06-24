@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom'
 // Components
 import Nav from '../../components/Nav/Nav'
 import Footer from '../../components/Footer/Footer'
+import MovieDetails from '../../components/MovieDetails/MovieDetails'
+import UpdateMovieForm from '../../components/UpdateMovieForm/UpdateMovieForm'
 // Pages
 import Home from '../Home/Home'
 import Login from '../Login/Login'
@@ -32,6 +34,8 @@ const App = () => {
         <Route path='/signup' element={ <SignUp /> } />
         <Route path='/movies' element={ user && <Movies />} />
         <Route path='/movies/create' element={ user && <CreateMovie />} />
+        <Route path='/movies/:id' element={user && <MovieDetails /> } />
+        <Route path='/movies/:id/edit' element={user && <UpdateMovieForm />} />
       </Routes>
 
       <Footer />
