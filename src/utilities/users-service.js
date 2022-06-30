@@ -22,7 +22,11 @@ export const login = async credentials => {
 export const signUp = async newUser => {
     try {
         const token = await axios.post(BASE_URL, newUser)
-        localStorage
+        console.log(token)
+        localStorage.setItem('token', token.data)
+
+        return getUser()
+
     } catch (e) {
         console.log(e)
         

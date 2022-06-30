@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Navigate } from 'react-router-dom';
 import { signUp } from '../../utilities/users-service'
+import { useNavigate } from 'react-router-dom'
 
-const SignUp = () => {
+const SignUp = ({ setUser }) => {
     const [newUser, setNewUser] = useState({
         firstName: '',
         lastName:'',
@@ -12,9 +12,10 @@ const SignUp = () => {
         email:'',
         password:'',
         repassword:'',
-        active: true,
-        favorites: []
+        active: true
     });
+
+    const navigate = useNavigate()
 
     const handleChange = e => {
         setNewUser({
@@ -23,16 +24,16 @@ const SignUp = () => {
         })
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
         try {
-            const res = await signUp(newUser)
-            if(res.status === 200) Navigate('/movies')
+            const user = await signUp(newUser)
+            // console.log(user)
+            setUser(user)
+            if(user) navigate('/movies')
         } catch (e) {
             console.log(e)
-            
         }
-
     }
 
     return (
@@ -46,7 +47,7 @@ const SignUp = () => {
                                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
                                         alt="Sample photo" className="img-fluid" />
                                 </div>
-                                <form className="col-xl-6">
+                                <form className="col-xl-6" onSubmit={handleSubmit}>
                                     <div className="card-body p-md-5 text-black">
                                         <h3 className="mb-5 text-uppercase">Sign Up</h3>
 
